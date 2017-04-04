@@ -59,7 +59,7 @@ namespace BMS2
 
         bool mini = false;
 
-        bool b1, b2, b3, b4, bf, bl, bp, bpw, bss, bv, bs1, bs2, bs3, bs4;
+        bool b1, b2, b3, b4, bf, bl, bp, bpw, bss, bv, bs1, bsz, bs3, bs4;
 
         int b11 = 30, b12 = 30, b21 = 30, b22 = 30, b31 = 30, b32 = 30, b41 = 30, b42 = 30, bf1 = 30, bf2 = 30, bl1 = 30, bl2 = 30, bp1 = 30, bp2 = 30, bv1 = 30, bv2 = 30;
 
@@ -161,11 +161,11 @@ namespace BMS2
                         }
                     }
 
-                    if (stroke.Key.Code == Keys.Two)
+                    if (stroke.Key.Code == Keys.Z)
                     {
                         if (work)
                         {
-                            if (bs2)
+                            if (bsz)
                             {
                                 if (stroke.Key.State == KeyState.Down)
                                 {
@@ -479,7 +479,7 @@ namespace BMS2
         {
             pause_exit = true;
             DateTime dt = DateTime.Now;
-            while ((DateTime.Now - dt).TotalSeconds < 1) 
+            while ((DateTime.Now - dt).TotalMilliseconds < 500)
             {
                 Thread.Sleep(100);
             }
@@ -523,7 +523,9 @@ namespace BMS2
             checkBox_p.IsChecked = true;
             checkBox_4.IsChecked = true;
             checkBox_f.IsChecked = true;            
-            checkBox_s3.IsChecked = true;
+            checkBox_s1.IsChecked = true;
+            checkBox_sz.IsChecked = true;
+            checkBox_s3.IsChecked = true;            
             checkBox_PW.IsChecked = true;
             textBox.Text = "p.f.p4lv";
         }
@@ -542,9 +544,7 @@ namespace BMS2
             _checkboxclear();
             checkBox_l.IsChecked = true;
             checkBox_p.IsChecked = true;
-            checkBox_2.IsChecked = true;
-            checkBox_PW.IsChecked = true;
-            checkBox_s4.IsChecked = true;
+            checkBox_2.IsChecked = true;            
         }
 
         private void mi_ci_Click(object sender, RoutedEventArgs e)
@@ -567,7 +567,7 @@ namespace BMS2
             checkBox_f.IsChecked = false;
             checkBox_v.IsChecked = false;
             checkBox_s1.IsChecked = false;
-            checkBox_s2.IsChecked = false;
+            checkBox_sz.IsChecked = false;
             checkBox_s3.IsChecked = false;
             checkBox_s4.IsChecked = false;
             checkBox_PW.IsChecked = false;
@@ -865,17 +865,17 @@ namespace BMS2
         {
             bs1 = false;
         }
+
+        private void checkBox_sz_Checked(object sender, RoutedEventArgs e)
+        {
+            bsz = true;
+        }
+
+        private void checkBox_sz_Unchecked(object sender, RoutedEventArgs e)
+        {
+            bsz = false;
+        }
                 
-        private void checkBox_s2_Checked(object sender, RoutedEventArgs e)
-        {
-            bs2 = true;
-        }
-
-        private void checkBox_s2_Unchecked(object sender, RoutedEventArgs e)
-        {
-            bs2 = false;
-        }
-
         private void checkBox_s3_Checked(object sender, RoutedEventArgs e)
         {
             bs3 = true;
