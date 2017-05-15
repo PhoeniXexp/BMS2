@@ -588,7 +588,7 @@ namespace BMS2
                 ni.Icon = Properties.Resources.Robot;
 
                 ni.BalloonTipText = "BMS off-line";
-                ni.ShowBalloonTip(1000);
+                ni.ShowBalloonTip(300);
             }
             else
             {
@@ -597,7 +597,7 @@ namespace BMS2
                 ni.Icon = Properties.Resources.Robot_green;
 
                 ni.BalloonTipText = "BMS on-line";
-                ni.ShowBalloonTip(1000);
+                ni.ShowBalloonTip(300);
             }
         }
 
