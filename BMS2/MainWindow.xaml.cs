@@ -31,7 +31,7 @@ namespace BMS2
             InitializeComponent();
 
             second_start();
-            
+
             System.Windows.Forms.ContextMenu _contextMenu = new System.Windows.Forms.ContextMenu();
 
             _contextMenu.MenuItems.Add("Кот", new EventHandler(mi_cat_set));
@@ -622,7 +622,7 @@ namespace BMS2
             context = InterceptionDriver.CreateContext();
 
             ni.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.None;
-            ni.BalloonTipTitle = "BNS2";
+            ni.BalloonTipTitle = "BMS2";
 
             if (context != IntPtr.Zero)
             {
