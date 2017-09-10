@@ -205,7 +205,7 @@ namespace BMS2
 
             Stroke stroke = new Stroke();
             InterceptionDriver.SetFilter(context, InterceptionDriver.IsKeyboard, (Int32)KeyboardFilterMode.All);
-            //InterceptionDriver.SetFilter(context, InterceptionDriver.IsMouse, (Int32)MouseFilterMode.All);
+            InterceptionDriver.SetFilter(context, InterceptionDriver.IsMouse, (Int32)MouseFilterMode.All);
 
             //keyboard: device=3
             //mouse: device=11
