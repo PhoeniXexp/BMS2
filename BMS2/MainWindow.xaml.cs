@@ -17,6 +17,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Keys = Interceptor.Keys;
+using System.Runtime.InteropServices;
 
 namespace BMS2
 {
@@ -29,21 +30,49 @@ namespace BMS2
         {
             InitializeComponent();
 
-            ni = new NotifyIcon();
-            ni.Icon = Properties.Resources.Robot;
-            ni.Visible = true;
-            ni.DoubleClick +=
-                delegate (object sender, EventArgs args)
+            second_start();
+
+            System.Windows.Forms.ContextMenu _contextMenu = new System.Windows.Forms.ContextMenu();
+
+            _contextMenu.MenuItems.Add("Кот", new EventHandler(mi_cat_set));
+            _contextMenu.MenuItems.Add("Лок", new EventHandler(mi_lock_set));
+            _contextMenu.MenuItems.Add("Син", new EventHandler(mi_sin_set));
+            _contextMenu.MenuItems.Add("ФМ", new EventHandler(mi_fm_set));
+            _contextMenu.MenuItems.Add("ЦИ", new EventHandler(mi_ci_set));
+
+            ni = new NotifyIcon()
+            {
+                Icon = Properties.Resources.Robot,
+                Visible = true,
+                ContextMenu = _contextMenu
+            };
+            ni.MouseClick +=
+                delegate (object sender, System.Windows.Forms.MouseEventArgs args)
                 {
-                    this.Show();
-                    this.WindowState = WindowState.Normal;
+                    if (args.Button == MouseButtons.Left)
+                    {
+                        this.Show();
+                        this.WindowState = WindowState.Normal;
+                        this.Activate();
+                    }
+                    else
+                        if (args.Button == MouseButtons.Right)
+                    {
+
+                    }
                 };
         }
-
+        
         protected override void OnStateChanged(EventArgs e)
         {
             if (WindowState == WindowState.Minimized)
                 this.Hide();
+
+            if (WindowState == WindowState.Normal)
+            {
+                this.Show();
+                this.Activate();
+            }
 
             base.OnStateChanged(e);
         }
@@ -63,10 +92,107 @@ namespace BMS2
 
         int b11 = 30, b12 = 30, b21 = 30, b22 = 30, b31 = 30, b32 = 30, b41 = 30, b42 = 30, bf1 = 30, bf2 = 30, bl1 = 30, bl2 = 30, bp1 = 30, bp2 = 30, bv1 = 30, bv2 = 30;
 
-        Color color_green= Color.FromRgb(190, 255, 190);
+        Color color_green = Color.FromRgb(190, 255, 190);
         Color color_red = Color.FromRgb(230, 160, 230);
 
-        private Thread callbackThread;        
+        [DllImport("user32.dll", EntryPoint = "FindWindow")]
+        public static extern IntPtr FindWindowByCaption(IntPtr ZeroOnly, string lpWindowName);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool ShowWindow(IntPtr hWnd, ShowWindowCommands nCmdShow);
+
+        enum ShowWindowCommands
+        {
+            /// <summary>
+            /// Hides the window and activates another window.
+            /// </summary>
+            Hide = 0,
+            /// <summary>
+            /// Activates and displays a window. If the window is minimized or 
+            /// maximized, the system restores it to its original size and position.
+            /// An application should specify this flag when displaying the window 
+            /// for the first time.
+            /// </summary>
+            Normal = 1,
+            /// <summary>
+            /// Activates the window and displays it as a minimized window.
+            /// </summary>
+            ShowMinimized = 2,
+            /// <summary>
+            /// Maximizes the specified window.
+            /// </summary>
+            Maximize = 3, // is this the right value?
+                          /// <summary>
+                          /// Activates the window and displays it as a maximized window.
+                          /// </summary>       
+            ShowMaximized = 3,
+            /// <summary>
+            /// Displays a window in its most recent size and position. This value 
+            /// is similar to <see cref="Win32.ShowWindowCommand.Normal"/>, except 
+            /// the window is not activated.
+            /// </summary>
+            ShowNoActivate = 4,
+            /// <summary>
+            /// Activates the window and displays it in its current size and position. 
+            /// </summary>
+            Show = 5,
+            /// <summary>
+            /// Minimizes the specified window and activates the next top-level 
+            /// window in the Z order.
+            /// </summary>
+            Minimize = 6,
+            /// <summary>
+            /// Displays the window as a minimized window. This value is similar to
+            /// <see cref="Win32.ShowWindowCommand.ShowMinimized"/>, except the 
+            /// window is not activated.
+            /// </summary>
+            ShowMinNoActive = 7,
+            /// <summary>
+            /// Displays the window in its current size and position. This value is 
+            /// similar to <see cref="Win32.ShowWindowCommand.Show"/>, except the 
+            /// window is not activated.
+            /// </summary>
+            ShowNA = 8,
+            /// <summary>
+            /// Activates and displays the window. If the window is minimized or 
+            /// maximized, the system restores it to its original size and position. 
+            /// An application should specify this flag when restoring a minimized window.
+            /// </summary>
+            Restore = 9,
+            /// <summary>
+            /// Sets the show state based on the SW_* value specified in the 
+            /// STARTUPINFO structure passed to the CreateProcess function by the 
+            /// program that started the application.
+            /// </summary>
+            ShowDefault = 10,
+            /// <summary>
+            ///  <b>Windows 2000/XP:</b> Minimizes a window, even if the thread 
+            /// that owns the window is not responding. This flag should only be 
+            /// used when minimizing windows from a different thread.
+            /// </summary>
+            ForceMinimize = 11
+        }
+
+        private void second_start()
+        {
+            Process proc = Process.GetCurrentProcess();
+            int curProc = proc.Id;
+            Process[] procs = Process.GetProcessesByName("BMS2");
+            foreach (Process pr in procs)
+            {
+                if (pr.Id != curProc)
+                {
+                    IntPtr hwnd = pr.MainWindowHandle;
+                    if (hwnd.ToInt32() == 0) hwnd = FindWindowByCaption(IntPtr.Zero, Window_Form.Title);
+                    ShowWindow(hwnd, ShowWindowCommands.Restore);
+
+                    Process.GetCurrentProcess().Kill();
+                }
+            }
+        }
+
+        private Thread callbackThread;
 
         private event EventHandler<KeyPressedEventArgs> OnKeyPressed;
         private event EventHandler<MousePressedEventArgs> OnMousePressed;
@@ -462,16 +588,16 @@ namespace BMS2
                 ni.Icon = Properties.Resources.Robot;
 
                 ni.BalloonTipText = "BMS off-line";
-                ni.ShowBalloonTip(1000);
+                ni.ShowBalloonTip(300);
             }
             else
             {
                 work = true;
                 Dispatcher.Invoke(() => { grid.Background = new SolidColorBrush(color_green); });
                 ni.Icon = Properties.Resources.Robot_green;
-                
+
                 ni.BalloonTipText = "BMS on-line";
-                ni.ShowBalloonTip(1000);
+                ni.ShowBalloonTip(300);
             }
         }
 
@@ -490,9 +616,9 @@ namespace BMS2
         {
             Thread.Sleep(p);
         }
-        
+
         private void Start()
-        {            
+        {
             context = InterceptionDriver.CreateContext();
 
             ni.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.None;
@@ -503,14 +629,19 @@ namespace BMS2
                 callbackThread = new Thread(new ThreadStart(hook));
                 callbackThread.Priority = ThreadPriority.Highest;
                 callbackThread.IsBackground = true;
-                callbackThread.Start();                
+                callbackThread.Start();
             }
             ch_work();
         }
-        
+
         private void mi_cat_Click(object sender, RoutedEventArgs e)
         {
-            _checkboxclear();            
+            mi_cat_set(null, null);
+        }
+
+        private void mi_cat_set(object sender, EventArgs e)
+        {
+            _checkboxclear();
             checkBox_l.IsChecked = true;
             checkBox_p.IsChecked = true;
             checkBox_PW.IsChecked = true;
@@ -519,18 +650,28 @@ namespace BMS2
 
         private void mi_lock_Click(object sender, RoutedEventArgs e)
         {
+            mi_lock_set(null, null);
+        }
+
+        private void mi_lock_set(object sender, EventArgs e)
+        {
             _checkboxclear();
             checkBox_p.IsChecked = true;
             checkBox_4.IsChecked = true;
-            checkBox_f.IsChecked = true;            
+            checkBox_f.IsChecked = true;
             checkBox_s1.IsChecked = true;
             checkBox_sz.IsChecked = true;
-            checkBox_s3.IsChecked = true;            
+            checkBox_s3.IsChecked = true;
             checkBox_PW.IsChecked = true;
             textBox.Text = "p.f.p4lv";
         }
 
         private void mi_sin_Click(object sender, RoutedEventArgs e)
+        {
+            mi_sin_set(null, null);
+        }
+
+        private void mi_sin_set(object sender, EventArgs e)
         {
             _checkboxclear();
             checkBox_f.IsChecked = true;
@@ -541,18 +682,28 @@ namespace BMS2
 
         private void mi_fm_Click(object sender, RoutedEventArgs e)
         {
-            _checkboxclear();
-            checkBox_l.IsChecked = true;
-            checkBox_p.IsChecked = true;
-            checkBox_2.IsChecked = true;            
+            mi_fm_set(null, null);
         }
 
-        private void mi_ci_Click(object sender, RoutedEventArgs e)
+        private void mi_fm_set(object sender, EventArgs e)
         {
             _checkboxclear();
             checkBox_l.IsChecked = true;
             checkBox_p.IsChecked = true;
-            checkBox_f.IsChecked = true;            
+            checkBox_2.IsChecked = true;
+        }
+
+        private void mi_ci_Click(object sender, RoutedEventArgs e)
+        {
+            mi_ci_set(null, null);            
+        }
+
+        private void mi_ci_set(object sender, EventArgs e)
+        {
+            _checkboxclear();
+            checkBox_l.IsChecked = true;
+            checkBox_p.IsChecked = true;
+            checkBox_f.IsChecked = true;
         }
 
         private void _checkboxclear()
@@ -572,7 +723,7 @@ namespace BMS2
             checkBox_s4.IsChecked = false;
             checkBox_PW.IsChecked = false;
         }
-        
+
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (textBox.Text.Length > 0)
@@ -651,7 +802,7 @@ namespace BMS2
         {
             mini = false;
         }
-        
+
         private void checkBox_v_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             win_pause _p = new win_pause(bv1, bv2);
@@ -678,7 +829,7 @@ namespace BMS2
             bl1 = _p.p1;
             bl2 = _p.p2;
         }
-                
+
         private void checkBox_f_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             win_pause _p = new win_pause(bf1, bf2);
@@ -691,8 +842,8 @@ namespace BMS2
         private void Stop()
         {
             if (context != IntPtr.Zero)
-            {               
-                InterceptionDriver.DestroyContext(context);                
+            {
+                InterceptionDriver.DestroyContext(context);
             }
             ni.Dispose();
 
@@ -875,7 +1026,7 @@ namespace BMS2
         {
             bsz = false;
         }
-                
+
         private void checkBox_s3_Checked(object sender, RoutedEventArgs e)
         {
             bs3 = true;
@@ -906,6 +1057,6 @@ namespace BMS2
             bpw = false;
         }
 
-        
+
     }
 }
