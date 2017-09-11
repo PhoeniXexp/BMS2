@@ -596,6 +596,7 @@ namespace BMS2
                 Dispatcher.Invoke(() => { grid.Background = new SolidColorBrush(color_green); });
                 ni.Icon = Properties.Resources.Robot_green;
 
+
                 ni.BalloonTipText = "BMS on-line";
                 ni.ShowBalloonTip(300);
             }
