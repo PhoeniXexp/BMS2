@@ -623,7 +623,7 @@ namespace BMS2
             context = InterceptionDriver.CreateContext();
 
             ni.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.None;
-            ni.BalloonTipTitle = "BMS2";
+            ni.BalloonTipTitle = "BNS2";
 
             if (context != IntPtr.Zero)
             {
