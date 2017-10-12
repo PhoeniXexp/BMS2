@@ -34,11 +34,12 @@ namespace BMS2
 
             System.Windows.Forms.ContextMenu _contextMenu = new System.Windows.Forms.ContextMenu();
 
-            _contextMenu.MenuItems.Add("Кот", new EventHandler(mi_cat_set));
-            _contextMenu.MenuItems.Add("Лок", new EventHandler(mi_lock_set));
             _contextMenu.MenuItems.Add("Син", new EventHandler(mi_sin_set));
             _contextMenu.MenuItems.Add("ФМ", new EventHandler(mi_fm_set));
+            _contextMenu.MenuItems.Add("Лок", new EventHandler(mi_lock_set));
             _contextMenu.MenuItems.Add("ЦИ", new EventHandler(mi_ci_set));
+            _contextMenu.MenuItems.Add("КФМ", new EventHandler(mi_kfm_set));
+            _contextMenu.MenuItems.Add("Кот", new EventHandler(mi_cat_set));
 
             ni = new NotifyIcon()
             {
@@ -82,16 +83,18 @@ namespace BMS2
         private IntPtr context;
         private int device, devk = 3, devm = 11;
 
-        bool m = false, work = true, pause_exit = false, mss = false;
+        bool m = false, m2 = false, work = true, pause_exit = false, mss = false;
 
         bool mt = false;
 
         bool mini = false;
 
-        bool b1, b2, b3, b4, bf, bl, bp, bpw, bss, bv, bs1, bsz, bs3, bs4;
+        bool bpw, bss, bs1, bsz, bs3, bs4;
 
-        int b11 = 30, b12 = 30, b21 = 30, b22 = 30, b31 = 30, b32 = 30, b41 = 30, b42 = 30, bf1 = 30, bf2 = 30, bl1 = 30, bl2 = 30, bp1 = 30, bp2 = 30, bv1 = 30, bv2 = 30;
+        int isch = 1;
 
+        int t = 30;
+        
         Color color_green = Color.FromRgb(190, 255, 190);
         Color color_red = Color.FromRgb(230, 160, 230);
 
@@ -191,6 +194,33 @@ namespace BMS2
                 }
             }
         }
+
+        class scheme
+        {
+            public bool b1 { get; set; }
+            public bool b2 { get; set; }
+            public bool b3 { get; set; }
+            public bool b4 { get; set; }
+            public bool bf { get; set; }
+            public bool bv { get; set; }
+            public bool bl { get; set; }
+            public bool bp { get; set; }
+            public scheme()
+            {
+                b1 = false;
+                b2 = false;
+                b3 = false;
+                b4 = false;
+                bf = false;
+                bv = false;
+                bl = false;
+                bp = false;
+            }
+
+        }
+
+        private scheme sch1 = new scheme();
+        private scheme sch2 = new scheme();
 
         private Thread callbackThread;
 
@@ -373,6 +403,30 @@ namespace BMS2
                         }
                     }
 
+                    if (stroke.Key.Code == Keys.T)
+                    {
+                        if (work)
+                        {
+                            if (stroke.Key.State == KeyState.Down)
+                            {
+                                if (m2 == false)
+                                {
+                                    m = false;
+                                    m2 = true;
+                                    new Thread(macro2).Start();
+                                }
+                            }
+                            else
+                            if (stroke.Key.State == KeyState.Up)
+                            {
+                                if (m2 == true) { m2 = false; }
+                            }
+
+
+                            s = false;
+                        }
+                    }
+
                     if (stroke.Key.Code == Keys.Insert)
                     {
                         if (stroke.Key.State == KeyState.E0)
@@ -422,75 +476,154 @@ namespace BMS2
             {
 
                 if (m)
-                    if (bp)
+                    if (sch1.bp)
                     {
                         SendMouseEvent(MouseState.RightDown);
-                        time(bp1);
+                        time(t);
                         SendMouseEvent(MouseState.RightUp);
-                        time(bp2);
+                        time(t);
                     }
 
                 if (m)
-                    if (bl)
+                    if (sch1.bl)
                     {
                         SendMouseEvent(MouseState.LeftDown);
-                        time(bl1);
+                        time(t);
                         SendMouseEvent(MouseState.LeftUp);
-                        time(bl2);
+                        time(t);
                     }
 
                 if (m)
-                    if (bf)
+                    if (sch1.bf)
                     {
                         SendKey(Keys.F, KeyState.Down);
-                        time(bf1);
+                        time(t);
                         SendKey(Keys.F, KeyState.Up);
-                        time(bf2);
+                        time(t);
                     }
 
                 if (m)
-                    if (b1)
+                    if (sch1.b1)
                     {
                         SendKey(Keys.One, KeyState.Down);
-                        time(b11);
+                        time(t);
                         SendKey(Keys.One, KeyState.Up);
-                        time(b12);
+                        time(t);
                     }
 
                 if (m)
-                    if (b2)
+                    if (sch1.b2)
                     {
                         SendKey(Keys.Two, KeyState.Down);
-                        time(b21);
+                        time(t);
                         SendKey(Keys.Two, KeyState.Up);
-                        time(b22);
+                        time(t);
                     }
 
                 if (m)
-                    if (b3)
+                    if (sch1.b3)
                     {
                         SendKey(Keys.Three, KeyState.Down);
-                        time(b31);
+                        time(t);
                         SendKey(Keys.Three, KeyState.Up);
-                        time(b32);
+                        time(t);
                     }
 
                 if (m)
-                    if (b4)
+                    if (sch1.b4)
                     {
                         SendKey(Keys.Four, KeyState.Down);
-                        time(b41);
+                        time(t);
                         SendKey(Keys.Four, KeyState.Up);
-                        time(b42);
+                        time(t);
                     }
 
                 if (m)
-                    if (bv)
+                    if (sch1.bv)
                     {
                         SendKey(Keys.V, KeyState.Down);
-                        time(bv1);
+                        time(t);
                         SendKey(Keys.V, KeyState.Up);
-                        time(bv2);
+                        time(t);
+                    }
+            }
+        }
+
+        private void macro2()
+        {
+            while (m2)
+            {
+
+                if (m2)
+                    if (sch2.bp)
+                    {
+                        SendMouseEvent(MouseState.RightDown);
+                        time(t);
+                        SendMouseEvent(MouseState.RightUp);
+                        time(t);
+                    }
+
+                if (m2)
+                    if (sch2.bl)
+                    {
+                        SendMouseEvent(MouseState.LeftDown);
+                        time(t);
+                        SendMouseEvent(MouseState.LeftUp);
+                        time(t);
+                    }
+
+                if (m2)
+                    if (sch2.bf)
+                    {
+                        SendKey(Keys.F, KeyState.Down);
+                        time(t);
+                        SendKey(Keys.F, KeyState.Up);
+                        time(t);
+                    }
+
+                if (m2)
+                    if (sch2.b1)
+                    {
+                        SendKey(Keys.One, KeyState.Down);
+                        time(t);
+                        SendKey(Keys.One, KeyState.Up);
+                        time(t);
+                    }
+
+                if (m2)
+                    if (sch2.b2)
+                    {
+                        SendKey(Keys.Two, KeyState.Down);
+                        time(t);
+                        SendKey(Keys.Two, KeyState.Up);
+                        time(t);
+                    }
+
+                if (m2)
+                    if (sch2.b3)
+                    {
+                        SendKey(Keys.Three, KeyState.Down);
+                        time(t);
+                        SendKey(Keys.Three, KeyState.Up);
+                        time(t);
+                    }
+
+                if (m2)
+                    if (sch2.b4)
+                    {
+                        SendKey(Keys.Four, KeyState.Down);
+                        time(t);
+                        SendKey(Keys.Four, KeyState.Up);
+                        time(t);
+                    }
+
+                if (m2)
+                    if (sch2.bv)
+                    {
+                        SendKey(Keys.V, KeyState.Down);
+                        time(t);
+                        SendKey(Keys.V, KeyState.Up);
+                        time(t);
                     }
             }
         }
@@ -707,6 +840,19 @@ namespace BMS2
             checkBox_f.IsChecked = true;
         }
 
+        private void mi_kfm_Click(object sender, RoutedEventArgs e)
+        {
+            mi_kfm_set(null, null);
+        }
+
+        private void mi_kfm_set(object sender, EventArgs e)
+        {
+            _checkboxclear();
+            checkBox_l.IsChecked = true;
+            checkBox_p.IsChecked = true;
+            checkBox_2.IsChecked = true;
+            checkBox_f.IsChecked = true;
+        }
         private void _checkboxclear()
         {
             textBox.Text = "";
@@ -779,6 +925,61 @@ namespace BMS2
             Process.GetCurrentProcess().Kill();
         }
 
+        private void checkbox_T_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                radio_T.IsEnabled = true;                
+            }
+            catch { }
+        }
+
+        private void checkbox_T_Unchecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                radio_T.IsEnabled = false;
+                radio_R.IsChecked = true;
+            }
+            catch { }
+        }
+
+        private void radio_R_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                radio_T.IsChecked = false;
+                isch = 1;
+                checkBox_1.IsChecked = sch1.b1;
+                checkBox_2.IsChecked = sch1.b2;
+                checkBox_3.IsChecked = sch1.b3;
+                checkBox_4.IsChecked = sch1.b4;
+                checkBox_p.IsChecked = sch1.bp;
+                checkBox_l.IsChecked = sch1.bl;
+                checkBox_f.IsChecked = sch1.bf;
+                checkBox_v.IsChecked = sch1.bv;
+            }
+            catch { }
+        }
+
+        private void radio_T_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                radio_R.IsChecked = false;
+                isch = 2;
+                checkBox_1.IsChecked = sch2.b1;
+                checkBox_2.IsChecked = sch2.b2;
+                checkBox_3.IsChecked = sch2.b3;
+                checkBox_4.IsChecked = sch2.b4;
+                checkBox_p.IsChecked = sch2.bp;
+                checkBox_l.IsChecked = sch2.bl;
+                checkBox_f.IsChecked = sch2.bf;
+                checkBox_v.IsChecked = sch2.bv;
+            }
+            catch { }
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Stop();
@@ -848,72 +1049,86 @@ namespace BMS2
 
         private void checkBox_1_Checked(object sender, RoutedEventArgs e)
         {
-            b1 = true;
+            if (isch == 1) { sch1.b1 = true; }
+            if (isch == 2) { sch2.b1 = true; }
         }
 
         private void checkBox_1_Unchecked(object sender, RoutedEventArgs e)
         {
-            b1 = false;
+            if (isch == 1) { sch1.b1 = false; }
+            if (isch == 2) { sch2.b1 = false; }
         }
 
         private void checkBox_2_Checked(object sender, RoutedEventArgs e)
         {
-            b2 = true;
+            if (isch == 1) { sch1.b2 = true; }
+            if (isch == 2) { sch2.b2 = true; }
         }
 
         private void checkBox_2_Unchecked(object sender, RoutedEventArgs e)
         {
-            b2 = false;
+            if (isch == 1) { sch1.b2 = false; }
+            if (isch == 2) { sch2.b2 = false; }
         }
 
         private void checkBox_3_Checked(object sender, RoutedEventArgs e)
         {
-            b3 = true;
+            if (isch == 1) { sch1.b3 = true; }
+            if (isch == 2) { sch2.b3 = true; }
         }
 
         private void checkBox_3_Unchecked(object sender, RoutedEventArgs e)
         {
-            b3 = false;
+            if (isch == 1) { sch1.b3 = false; }
+            if (isch == 2) { sch2.b3 = false; }
         }
 
         private void checkBox_4_Checked(object sender, RoutedEventArgs e)
         {
-            b4 = true;
+            if (isch == 1) { sch1.b4 = true; }
+            if (isch == 2) { sch2.b4 = true; }
         }
 
         private void checkBox_4_Unchecked(object sender, RoutedEventArgs e)
         {
-            b4 = false;
+            if (isch == 1) { sch1.b4 = false; }
+            if (isch == 2) { sch2.b4 = false; }
         }
 
         private void checkBox_p_Checked(object sender, RoutedEventArgs e)
         {
-            bp = true;
+            if (isch == 1) { sch1.bp = true; }
+            if (isch == 2) { sch2.bp = true; }
         }
 
         private void checkBox_p_Unchecked(object sender, RoutedEventArgs e)
         {
-            bp = false;
+            if (isch == 1) { sch1.bp = false; }
+            if (isch == 2) { sch2.bp = false; }
         }
 
         private void checkBox_l_Checked(object sender, RoutedEventArgs e)
         {
-            bl = true;
+            if (isch == 1) { sch1.bl = true; }
+            if (isch == 2) { sch2.bl = true; }
         }
 
         private void checkBox_l_Unchecked(object sender, RoutedEventArgs e)
         {
-            bl = false;
+            if (isch == 1) { sch1.bl = false; }
+            if (isch == 2) { sch2.bl = false; }
         }
 
         private void checkBox_f_Checked(object sender, RoutedEventArgs e)
         {
-            bf = true;
+            if (isch == 1) { sch1.bf = true; }
+            if (isch == 2) { sch2.bf = true; }
         }
 
         private void checkBox_f_Unchecked(object sender, RoutedEventArgs e)
         {
-            bf = false;
+            if (isch == 1) { sch1.bf = false; }
+            if (isch == 2) { sch2.bf = false; }
         }
 
         private void checkBox_ss_Checked(object sender, RoutedEventArgs e)
@@ -928,12 +1143,14 @@ namespace BMS2
 
         private void checkBox_v_Checked(object sender, RoutedEventArgs e)
         {
-            bv = true;
+            if (isch == 1) { sch1.bv = true; }
+            if (isch == 2) { sch2.bv = true; }
         }
 
         private void checkBox_v_Unchecked(object sender, RoutedEventArgs e)
         {
-            bv = false;
+            if (isch == 1) { sch1.bv = false; }
+            if (isch == 2) { sch2.bv = false; }
         }
 
         private void checkBox_s1_Checked(object sender, RoutedEventArgs e)
