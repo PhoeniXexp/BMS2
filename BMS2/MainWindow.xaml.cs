@@ -91,6 +91,8 @@ namespace BMS2
 
         bool bpw, bss, bs1, bsz, bs3, bs4;
 
+        bool bt = false;
+
         int isch = 1;
 
         int t = 25;
@@ -407,23 +409,25 @@ namespace BMS2
                     {
                         if (work)
                         {
-                            if (stroke.Key.State == KeyState.Down)
+                            if (bt)
                             {
-                                if (m2 == false)
+                                if (stroke.Key.State == KeyState.Down)
                                 {
-                                    m = false;
-                                    m2 = true;
-                                    new Thread(macro2).Start();
+                                    if (m2 == false)
+                                    {
+                                        m = false;
+                                        m2 = true;
+                                        new Thread(macro2).Start();
+                                    }
                                 }
-                            }
-                            else
-                            if (stroke.Key.State == KeyState.Up)
-                            {
-                                if (m2 == true) { m2 = false; }
-                            }
+                                else
+                                if (stroke.Key.State == KeyState.Up)
+                                {
+                                    if (m2 == true) { m2 = false; }
+                                }
 
-
-                            s = false;
+                                s = false;
+                            }
                         }
                     }
 
@@ -818,7 +822,7 @@ namespace BMS2
             checkBox_f.IsChecked = true;
             checkBox_4.IsChecked = true;
             checkBox_p.IsChecked = true;
-            //textBox.Text = "p.4.pf.";
+            textBox.Text = "p.4.pf.";
 
             checkbox_T.IsChecked = true;
             isch = 2;
@@ -946,7 +950,8 @@ namespace BMS2
         {
             try
             {
-                radio_T.IsEnabled = true;                
+                radio_T.IsEnabled = true;
+                bt = true;
             }
             catch { }
         }
@@ -957,6 +962,7 @@ namespace BMS2
             {
                 radio_T.IsEnabled = false;
                 radio_R.IsChecked = true;
+                bt = false;
             }
             catch { }
         }
