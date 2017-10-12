@@ -93,7 +93,7 @@ namespace BMS2
 
         int isch = 1;
 
-        int t = 30;
+        int t = 25;
         
         Color color_green = Color.FromRgb(190, 255, 190);
         Color color_red = Color.FromRgb(230, 160, 230);
@@ -776,8 +776,10 @@ namespace BMS2
         private void mi_cat_set(object sender, EventArgs e)
         {
             _checkboxclear();
+
             checkBox_l.IsChecked = true;
             checkBox_p.IsChecked = true;
+            checkBox_f.IsChecked = true;
             checkBox_PW.IsChecked = true;
             checkBox_s4.IsChecked = true;
         }
@@ -798,6 +800,11 @@ namespace BMS2
             checkBox_s3.IsChecked = true;
             checkBox_PW.IsChecked = true;
             textBox.Text = "p.f.p4lv";
+
+            checkbox_T.IsChecked = true;
+            isch = 2;
+            sch2.bp = true;
+            sch2.b4 = true;            
         }
 
         private void mi_sin_Click(object sender, RoutedEventArgs e)
@@ -811,7 +818,12 @@ namespace BMS2
             checkBox_f.IsChecked = true;
             checkBox_4.IsChecked = true;
             checkBox_p.IsChecked = true;
-            textBox.Text = "p.4.pf.";
+            //textBox.Text = "p.4.pf.";
+
+            checkbox_T.IsChecked = true;
+            isch = 2;
+            sch2.bp = true;
+            sch2.b4 = true;
         }
 
         private void mi_fm_Click(object sender, RoutedEventArgs e)
@@ -869,6 +881,11 @@ namespace BMS2
             checkBox_s3.IsChecked = false;
             checkBox_s4.IsChecked = false;
             checkBox_PW.IsChecked = false;
+
+            sch1 = new scheme();
+            sch2 = new scheme();
+            isch = 1;
+            checkbox_T.IsChecked = false;
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -958,6 +975,29 @@ namespace BMS2
                 checkBox_l.IsChecked = sch1.bl;
                 checkBox_f.IsChecked = sch1.bf;
                 checkBox_v.IsChecked = sch1.bv;
+
+                if (textBox.Text.Length > 0)
+                {
+                    checkBox_1.IsEnabled = false;
+                    checkBox_2.IsEnabled = false;
+                    checkBox_3.IsEnabled = false;
+                    checkBox_4.IsEnabled = false;
+                    checkBox_p.IsEnabled = false;
+                    checkBox_l.IsEnabled = false;
+                    checkBox_f.IsEnabled = false;
+                    checkBox_v.IsEnabled = false;
+                }
+                else
+                {
+                    checkBox_1.IsEnabled = true;
+                    checkBox_2.IsEnabled = true;
+                    checkBox_3.IsEnabled = true;
+                    checkBox_4.IsEnabled = true;
+                    checkBox_p.IsEnabled = true;
+                    checkBox_l.IsEnabled = true;
+                    checkBox_f.IsEnabled = true;
+                    checkBox_v.IsEnabled = true;
+                }
             }
             catch { }
         }
@@ -976,6 +1016,18 @@ namespace BMS2
                 checkBox_l.IsChecked = sch2.bl;
                 checkBox_f.IsChecked = sch2.bf;
                 checkBox_v.IsChecked = sch2.bv;
+
+                if (textBox.Text.Length > 0)
+                {
+                    checkBox_1.IsEnabled = true;
+                    checkBox_2.IsEnabled = true;
+                    checkBox_3.IsEnabled = true;
+                    checkBox_4.IsEnabled = true;
+                    checkBox_p.IsEnabled = true;
+                    checkBox_l.IsEnabled = true;
+                    checkBox_f.IsEnabled = true;
+                    checkBox_v.IsEnabled = true;
+                }
             }
             catch { }
         }
