@@ -752,43 +752,7 @@ namespace BMS2
                 checkBox_v.IsEnabled = true;
             }
         }
-
-        private void checkBox_1_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            win_pause _p = new win_pause(b11, b12);
-            _p.Owner = this;
-            _p.ShowDialog();
-            b11 = _p.p1;
-            b12 = _p.p2;
-        }
-
-        private void checkBox_2_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            win_pause _p = new win_pause(b21, b22);
-            _p.Owner = this;
-            _p.ShowDialog();
-            b21 = _p.p1;
-            b22 = _p.p2;
-        }
-
-        private void checkBox_3_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            win_pause _p = new win_pause(b31, b32);
-            _p.Owner = this;
-            _p.ShowDialog();
-            b31 = _p.p1;
-            b32 = _p.p2;
-        }
-
-        private void checkBox_4_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            win_pause _p = new win_pause(b41, b42);
-            _p.Owner = this;
-            _p.ShowDialog();
-            b41 = _p.p1;
-            b42 = _p.p2;
-        }
-
+        
         private void grid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             mini = true;
@@ -803,43 +767,7 @@ namespace BMS2
         {
             mini = false;
         }
-
-        private void checkBox_v_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            win_pause _p = new win_pause(bv1, bv2);
-            _p.Owner = this;
-            _p.ShowDialog();
-            bv1 = _p.p1;
-            bv2 = _p.p2;
-        }
-
-        private void checkBox_p_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            win_pause _p = new win_pause(bp1, bp2);
-            _p.Owner = this;
-            _p.ShowDialog();
-            bp1 = _p.p1;
-            bp2 = _p.p2;
-        }
-
-        private void checkBox_l_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            win_pause _p = new win_pause(bl1, bl2);
-            _p.Owner = this;
-            _p.ShowDialog();
-            bl1 = _p.p1;
-            bl2 = _p.p2;
-        }
-
-        private void checkBox_f_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            win_pause _p = new win_pause(bf1, bf2);
-            _p.Owner = this;
-            _p.ShowDialog();
-            bf1 = _p.p1;
-            bf2 = _p.p2;
-        }
-
+        
         private void Stop()
         {
             if (context != IntPtr.Zero)
