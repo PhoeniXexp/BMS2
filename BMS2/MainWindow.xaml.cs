@@ -854,6 +854,11 @@ namespace BMS2
             checkBox_l.IsChecked = true;
             checkBox_p.IsChecked = true;
             checkBox_f.IsChecked = true;
+
+            checkbox_T.IsChecked = true;
+            isch = 2;
+            sch2.bp = true;
+            sch2.bf = true;
         }
 
         private void mi_kfm_Click(object sender, RoutedEventArgs e)
@@ -863,8 +868,7 @@ namespace BMS2
 
         private void mi_kfm_set(object sender, EventArgs e)
         {
-            _checkboxclear();
-            checkBox_l.IsChecked = true;
+            _checkboxclear();            
             checkBox_p.IsChecked = true;
             checkBox_2.IsChecked = true;
             checkBox_f.IsChecked = true;
