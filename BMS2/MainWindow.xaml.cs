@@ -845,7 +845,7 @@ namespace BMS2
             sch2.bp = true;
             sch2.b4 = true;
         }
-
+         
         private void mi_fm_Click(object sender, RoutedEventArgs e)
         {
             mi_fm_set(null, null);
@@ -854,9 +854,10 @@ namespace BMS2
         private void mi_fm_set(object sender, EventArgs e)
         {
             _checkboxclear();
-            checkBox_l.IsChecked = true;
+            //checkBox_l.IsChecked = true;
             checkBox_p.IsChecked = true;
-            checkBox_2.IsChecked = true;
+            checkBox_PW.IsChecked = true;
+            //checkBox_2.IsChecked = true;
         }
 
         private void mi_ci_Click(object sender, RoutedEventArgs e)

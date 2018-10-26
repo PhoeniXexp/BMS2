@@ -38,16 +38,14 @@
     <ApplicationIcon>Robot.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Interceptor, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Interceptor-master_dll\Interceptor\bin\Debug\Interceptor.dll</HintPath>
+    <Reference Include="Interceptor">
+      <HintPath>..\..\..\Interceptor-master\Interceptor\bin\Debug\Interceptor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
