@@ -29,7 +29,8 @@
                     <MenuItem x:Name="mi_sin" Header="Син" Click="mi_sin_Click"/>
                     <MenuItem x:Name="mi_fm" Header="ФМ" Click="mi_fm_Click"/>
                     <MenuItem x:Name="mi_lock" Header="Лок" Click="mi_lock_Click"/>
-                    <MenuItem x:Name="mi_ci" Header="ЦИ" Click="mi_ci_Click"/>
+                    <MenuItem x:Name="mi_ci" Header="Ци" Click="mi_ci_Click"/>
+                    <MenuItem x:Name="mi_destr" Header="Дестр" Click="mi_destr_Click"/>
                     <MenuItem x:Name="mi_gun" Header="Ган" Click="mi_gun_Click"/>
                     <MenuItem x:Name="mi_kfm" Header="КФМ" Click="mi_kfm_Click"/>
                     <MenuItem x:Name="mi_cat" Header="Кот" Click="mi_cat_Click"/>                    
