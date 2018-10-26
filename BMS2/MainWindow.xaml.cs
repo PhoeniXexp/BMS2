@@ -845,7 +845,7 @@ namespace BMS2
             sch2.bp = true;
             sch2.b4 = true;
         }
-
+         
         private void mi_fm_Click(object sender, RoutedEventArgs e)
         {
             mi_fm_set(null, null);
