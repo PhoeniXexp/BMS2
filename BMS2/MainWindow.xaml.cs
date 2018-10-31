@@ -34,14 +34,16 @@ namespace BMS2
 
             System.Windows.Forms.ContextMenu _contextMenu = new System.Windows.Forms.ContextMenu();
 
-            _contextMenu.MenuItems.Add("Син", new EventHandler(mi_sin_set));
             _contextMenu.MenuItems.Add("ФМ", new EventHandler(mi_fm_set));
             _contextMenu.MenuItems.Add("Лок", new EventHandler(mi_lock_set));
             _contextMenu.MenuItems.Add("Ци", new EventHandler(mi_ci_set));
             _contextMenu.MenuItems.Add("Дестр", new EventHandler(mi_destr_set));
+            _contextMenu.MenuItems.Add("Син", new EventHandler(mi_sin_set));
+            _contextMenu.MenuItems.Add("БМ", new EventHandler(mi_bm_set));
             _contextMenu.MenuItems.Add("Ган", new EventHandler(mi_gun_set));
             _contextMenu.MenuItems.Add("КФМ", new EventHandler(mi_kfm_set));
             _contextMenu.MenuItems.Add("Кот", new EventHandler(mi_cat_set));
+            _contextMenu.MenuItems.Add("Вар", new EventHandler(mi_var_set));
 
             ni = new NotifyIcon()
             {
@@ -91,7 +93,7 @@ namespace BMS2
 
         bool mini = false;
 
-        bool bpw, bss, bs1, bsz, bs3, bs4;
+        bool bpw, bss, bs1, bs2, bs3, bs4;
 
         bool bt = false;
 
@@ -325,7 +327,7 @@ namespace BMS2
                     {
                         if (work)
                         {
-                            if (bsz)
+                            if (bs2)
                             {
                                 if (stroke.Key.State == KeyState.Down)
                                 {
@@ -774,36 +776,20 @@ namespace BMS2
             ch_work();
         }
 
-        private void mi_cat_Click(object sender, RoutedEventArgs e)
+        //FM
+        private void mi_fm_Click(object sender, RoutedEventArgs e)
         {
-            mi_cat_set(null, null);
+            mi_fm_set(null, null);
         }
 
-        private void mi_cat_set(object sender, EventArgs e)
+        private void mi_fm_set(object sender, EventArgs e)
         {
-            _checkboxclear();
-
-            checkBox_l.IsChecked = true;
+            _checkboxclear();            
             checkBox_p.IsChecked = true;
-            checkBox_f.IsChecked = true;            
-            checkBox_s4.IsChecked = true;
+            checkBox_PW.IsChecked = true;
         }
 
-        private void mi_gun_Click(object sender, RoutedEventArgs e)
-        {
-            mi_gun_set(null, null);
-        }
-
-        private void mi_gun_set(object sender, EventArgs e)
-        {
-            _checkboxclear();
-            
-            checkBox_p.IsChecked = true;
-            checkBox_f.IsChecked = true;
-            checkBox_3.IsChecked = true;
-            checkBox_v.IsChecked = true;
-        }
-
+        //LOCK
         private void mi_lock_Click(object sender, RoutedEventArgs e)
         {
             mi_lock_set(null, null);
@@ -813,75 +799,27 @@ namespace BMS2
         {
             _checkboxclear();
             checkBox_p.IsChecked = true;
-            checkBox_4.IsChecked = true;
-            checkBox_f.IsChecked = true;
-            checkBox_s1.IsChecked = true;
-            checkBox_sz.IsChecked = true;
-            checkBox_s3.IsChecked = true;
             checkBox_PW.IsChecked = true;
-            textBox.Text = "p.f.p4lv";
-
-            checkbox_T.IsChecked = true;
-            isch = 2;
-            sch2.bp = true;
-            sch2.b4 = true;            
         }
 
-        private void mi_sin_Click(object sender, RoutedEventArgs e)
-        {
-            mi_sin_set(null, null);
-        }
-
-        private void mi_sin_set(object sender, EventArgs e)
-        {
-            _checkboxclear();
-            checkBox_f.IsChecked = true;
-            checkBox_4.IsChecked = true;
-            checkBox_p.IsChecked = true;
-            textBox.Text = "p.4.pf.";
-
-            checkbox_T.IsChecked = true;
-            isch = 2;
-            sch2.bp = true;
-            sch2.b4 = true;
-        }
-         
-        private void mi_fm_Click(object sender, RoutedEventArgs e)
-        {
-            mi_fm_set(null, null);
-        }
-
-        private void mi_fm_set(object sender, EventArgs e)
-        {
-            _checkboxclear();
-            checkBox_l.IsChecked = true;
-            checkBox_p.IsChecked = true;
-            checkBox_2.IsChecked = true;
-        }
-
+        //CI
         private void mi_ci_Click(object sender, RoutedEventArgs e)
         {
-            mi_ci_set(null, null);            
+            mi_ci_set(null, null);
         }
 
         private void mi_ci_set(object sender, EventArgs e)
         {
-            _checkboxclear();            
+            _checkboxclear();
             checkBox_p.IsChecked = true;
-            checkBox_f.IsChecked = true;
-            checkBox_2.IsChecked = true;
-            checkBox_v.IsChecked = true;
-
             checkBox_PW.IsChecked = true;
 
-            checkBox_s1.IsChecked = true;
+            textBox.Text = "pzv";
 
-            checkbox_T.IsChecked = true;
-            isch = 2;
-            sch2.bp = true;
-            sch2.bf = true;
+            checkBox_s1.IsChecked = true;
         }
 
+        //DESTR
         private void mi_destr_Click(object sender, RoutedEventArgs e)
         {
             mi_destr_set(null, null);
@@ -890,11 +828,62 @@ namespace BMS2
         private void mi_destr_set(object sender, EventArgs e)
         {
             _checkboxclear();
-            checkBox_l.IsChecked = true;
             checkBox_p.IsChecked = true;
-            checkBox_f.IsChecked = true;
+            checkBox_PW.IsChecked = true;
+
+            textBox.Text = "px3e";
         }
 
+        //SIN
+        private void mi_sin_Click(object sender, RoutedEventArgs e)
+        {
+            mi_sin_set(null, null);
+        }
+
+        private void mi_sin_set(object sender, EventArgs e)
+        {
+            _checkboxclear();
+            checkBox_p.IsChecked = true;
+            checkBox_PW.IsChecked = true;
+
+            textBox.Text = "p34";
+
+            checkBox_s2.IsChecked = true;
+        }
+
+        //BM
+        private void mi_bm_Click(object sender, RoutedEventArgs e)
+        {
+            mi_bm_set(null, null);
+        }
+
+        private void mi_bm_set(object sender, EventArgs e)
+        {
+            _checkboxclear();
+            checkBox_p.IsChecked = true;
+            checkBox_PW.IsChecked = true;
+
+            textBox.Text = "2vp";
+
+            checkBox_s1.IsChecked = true;
+        }
+
+        //GUN
+        private void mi_gun_Click(object sender, RoutedEventArgs e)
+        {
+            mi_gun_set(null, null);
+        }
+
+        private void mi_gun_set(object sender, EventArgs e)
+        {
+            _checkboxclear();
+            checkBox_p.IsChecked = true;
+            checkBox_PW.IsChecked = true;
+
+            checkBox_s1.IsChecked = true;
+        }
+
+        //KFM
         private void mi_kfm_Click(object sender, RoutedEventArgs e)
         {
             mi_kfm_set(null, null);
@@ -902,11 +891,52 @@ namespace BMS2
 
         private void mi_kfm_set(object sender, EventArgs e)
         {
-            _checkboxclear();            
+            _checkboxclear();
             checkBox_p.IsChecked = true;
-            checkBox_2.IsChecked = true;
-            checkBox_f.IsChecked = true;
+            checkBox_PW.IsChecked = true;
+
+            textBox.Text = "2xpv";
         }
+
+        //COT
+        private void mi_cat_Click(object sender, RoutedEventArgs e)
+        {
+            mi_cat_set(null, null);
+        }
+
+        private void mi_cat_set(object sender, EventArgs e)
+        {
+            _checkboxclear();
+            checkBox_p.IsChecked = true;
+            checkBox_l.IsChecked = true;
+            checkBox_1.IsChecked = true;
+            checkBox_2.IsChecked = true;
+            checkBox_3.IsChecked = true;
+            checkBox_f.IsChecked = true;
+
+            checkBox_PW.IsChecked = true;
+
+            checkBox_s4.IsChecked = true;
+        }
+
+        //VAR
+        private void mi_var_Click(object sender, RoutedEventArgs e)
+        {
+            mi_var_set(null, null);
+        }
+
+        private void mi_var_set(object sender, EventArgs e)
+        {
+            _checkboxclear();
+            checkBox_p.IsChecked = true;
+            checkBox_v.IsChecked = true;
+            
+            checkBox_PW.IsChecked = true;
+
+            checkBox_s1.IsChecked = true;
+        }
+
+
         private void _checkboxclear()
         {
             textBox.Text = "";
@@ -919,7 +949,7 @@ namespace BMS2
             checkBox_f.IsChecked = false;
             checkBox_v.IsChecked = false;
             checkBox_s1.IsChecked = false;
-            checkBox_sz.IsChecked = false;
+            checkBox_s2.IsChecked = false;
             checkBox_s3.IsChecked = false;
             checkBox_s4.IsChecked = false;
             checkBox_PW.IsChecked = false;
@@ -1242,7 +1272,7 @@ namespace BMS2
             if (isch == 1) { sch1.bv = true; }
             if (isch == 2) { sch2.bv = true; }
         }
-
+        
         private void checkBox_v_Unchecked(object sender, RoutedEventArgs e)
         {
             if (isch == 1) { sch1.bv = false; }
@@ -1258,15 +1288,16 @@ namespace BMS2
         {
             bs1 = false;
         }
-
-        private void checkBox_sz_Checked(object sender, RoutedEventArgs e)
+        
+        private void checkBox_s2_Checked(object sender, RoutedEventArgs e)
         {
-            bsz = true;
+            bs2 = true;
         }
+       
 
-        private void checkBox_sz_Unchecked(object sender, RoutedEventArgs e)
+        private void checkBox_s2_Unchecked(object sender, RoutedEventArgs e)
         {
-            bsz = false;
+            bs2 = false;
         }
 
         private void checkBox_s3_Checked(object sender, RoutedEventArgs e)
