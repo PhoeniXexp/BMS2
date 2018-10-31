@@ -18,22 +18,24 @@
         <Label x:Name="label2" Content="k" Margin="15,162,0,0" FontSize="10" Padding="0,0" HorizontalAlignment="Left" Width="17" Height="18" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="m" Margin="151,162,0,0" FontSize="10" Padding="0,0" Width="17" HorizontalAlignment="Left" Height="18" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox_PW" Content="PW" HorizontalAlignment="Left" Height="15" Margin="88,48,0,0" VerticalAlignment="Top" Width="50" Checked="checkBox_PW_Checked" Unchecked="checkBox_PW_Unchecked" IsChecked="True"/>
-        <CheckBox x:Name="checkBox_ss" Content="ё -&gt; ss" HorizontalAlignment="Left" Height="16" Margin="10,105,0,0" VerticalAlignment="Top" Width="78" Checked="checkBox_ss_Checked" Unchecked="checkBox_ss_Unchecked"/>
+        <CheckBox x:Name="checkBox_ss" Content="ё -&gt; ss" HorizontalAlignment="Left" Height="16" Margin="10,105,0,0" VerticalAlignment="Top" Width="78" Checked="checkBox_ss_Checked" Unchecked="checkBox_ss_Unchecked" IsChecked="True"/>
         <CheckBox x:Name="checkBox_s1" Content="Save 1" HorizontalAlignment="Left" Height="15" Margin="10,67,0,0" VerticalAlignment="Top" Width="58" Checked="checkBox_s1_Checked" Unchecked="checkBox_s1_Unchecked"/>
-        <CheckBox x:Name="checkBox_sz" Content="Save Z" HorizontalAlignment="Left" Height="15" Margin="88,67,0,0" VerticalAlignment="Top" Width="58" Unchecked="checkBox_sz_Unchecked" Checked="checkBox_sz_Checked"/>
+        <CheckBox x:Name="checkBox_s2" Content="Save 2" HorizontalAlignment="Left" Height="15" Margin="88,67,0,0" VerticalAlignment="Top" Width="58" Checked="checkBox_s2_Checked" Unchecked="checkBox_s2_Unchecked"/>
         <CheckBox x:Name="checkBox_s3" Content="Save 3" HorizontalAlignment="Left" Height="15" Margin="10,86,0,0" VerticalAlignment="Top" Width="58" Checked="checkBox_s3_Checked" Unchecked="checkBox_s3_Unchecked"/>
         <CheckBox x:Name="checkBox_s4" Content="Save 4" HorizontalAlignment="Left" Height="15" Margin="88,86,0,0" VerticalAlignment="Top" Width="58" Checked="checkBox_s4_Checked" Unchecked="checkBox_s4_Unchecked"/>
         <TextBox x:Name="textBox" Margin="10,124,0,0" TextWrapping="Wrap" TextChanged="textBox_TextChanged" HorizontalAlignment="Left" Width="162" Height="38" VerticalAlignment="Top">
             <TextBox.ContextMenu>
                 <ContextMenu>
-                    <MenuItem x:Name="mi_sin" Header="Син" Click="mi_sin_Click"/>
                     <MenuItem x:Name="mi_fm" Header="ФМ" Click="mi_fm_Click"/>
                     <MenuItem x:Name="mi_lock" Header="Лок" Click="mi_lock_Click"/>
                     <MenuItem x:Name="mi_ci" Header="Ци" Click="mi_ci_Click"/>
                     <MenuItem x:Name="mi_destr" Header="Дестр" Click="mi_destr_Click"/>
+                    <MenuItem x:Name="mi_sin" Header="Син" Click="mi_sin_Click"/>
+                    <MenuItem x:Name="mi_bm" Header="БМ" Click="mi_bm_Click"/>
                     <MenuItem x:Name="mi_gun" Header="Ган" Click="mi_gun_Click"/>
                     <MenuItem x:Name="mi_kfm" Header="КФМ" Click="mi_kfm_Click"/>
-                    <MenuItem x:Name="mi_cat" Header="Кот" Click="mi_cat_Click"/>                    
+                    <MenuItem x:Name="mi_cat" Header="Кот" Click="mi_cat_Click"/>
+                    <MenuItem x:Name="mi_var" Header="Вар" Click="mi_var_Click"/>
                 </ContextMenu>
             </TextBox.ContextMenu>
         </TextBox>
